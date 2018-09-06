@@ -14,7 +14,7 @@ Moment 使用手册：
 ```
 java -jar moment-1.0.jar [options]
   Options:
-    * -p, --path
+  * -p, --path
       The path of image list that need to be stitched
     -h, --height
       The bottom subtitle height should be in unit px
