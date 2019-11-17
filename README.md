@@ -1,4 +1,4 @@
-# Moment [![Actions Status](https://github.com/FantasticMao/moment/workflows/Java%20CI/badge.svg)](https://github.com/FantasticMao/moment/actions) [![image](https://img.shields.io/badge/release-download-blue.svg)](https://github.com/FantasticMao/moment/releases) [![image](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/FantasticMao/moment/blob/master/LICENSE)
+# Moment [![Actions Status](https://github.com/FantasticMao/moment/workflows/action/badge.svg)](https://github.com/FantasticMao/moment/actions) [![image](https://img.shields.io/badge/release-download-blue.svg)](https://github.com/FantasticMao/moment/releases) [![image](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/FantasticMao/moment/blob/master/LICENSE)
 
 Moment 是一个简单（可能没用）的小工具，它可以把多张图片（一般是视频截图）的底部字幕，拼接到第一张图片底下。
 
