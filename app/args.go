@@ -1,6 +1,7 @@
 package app
 
 import (
+	"errors"
 	"fmt"
 	"github.com/jessevdk/go-flags"
 	"os"
@@ -13,18 +14,32 @@ type Options struct {
 	ShowHelp func() error `long:"help" description:"Display this help message"`
 }
 
-func ParseArgs() (opts Options) {
+func ParseArgs() (opts Options, err error) {
 	parser := flags.NewParser(&opts, flags.PassDoubleDash)
+	// see https://github.com/jessevdk/go-flags/issues/240#issuecomment-321556869
 	parser.Usage = "[OPTIONS]"
 	opts.ShowHelp = func() error {
 		parser.WriteHelp(os.Stdout)
 		os.Exit(0)
 		return nil
 	}
-	if _, err := parser.Parse(); err != nil {
+	// 解析命令行参数
+	if _, err = parser.Parse(); err != nil {
 		parser.WriteHelp(os.Stdout)
 		fmt.Printf("\n")
 		panic(err)
 	}
-	return opts
+	// 校验命令行参数
+	err = checkArgs(opts)
+	return opts, err
+}
+
+func checkArgs(opts Options) (err error) {
+	if len(opts.Paths) <= 0 {
+		return errors.New("'--path' argument is required")
+	}
+	if opts.Height < 0 {
+		return errors.New("height could not be negative")
+	}
+	return nil
 }
