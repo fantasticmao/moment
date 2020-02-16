@@ -4,10 +4,7 @@ import (
 	"fmt"
 	"github.com/FantasticMao/moment/app"
 	"os"
-	"path/filepath"
 )
-
-const targetFileNameSuffix = "_final"
 
 func main() {
 	opts, err := app.ParseArgs()
@@ -29,12 +26,11 @@ func main() {
 	}
 	defer closeFile(files)
 
-	fmt.Printf("%v\n", files)
-
-	// 最终生成的文件路径
-	targetFileName := app.GetBaseNameWithoutExt(files[0]) + targetFileNameSuffix + app.GetExtension(files[0])
-	targetFilePath, _ := filepath.Abs(opts.Out + "/" + targetFileName)
-	fmt.Println(targetFilePath)
+	if targetFilePath, err := app.Stitch(opts.Height, opts.Out, files); err == nil {
+		fmt.Printf("%v\n", targetFilePath)
+	} else {
+		panic(err)
+	}
 }
 
 func closeFile(files []os.File) {
