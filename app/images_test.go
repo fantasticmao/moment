@@ -1,19 +1,7 @@
 package app
 
-import (
-	"os"
-	"testing"
-)
+import "testing"
 
-func TestCheckIllegalImage(t *testing.T) {
-	if file, err := os.Open(fileName); err == nil {
-		defer file.Close()
+func TestStitch(t *testing.T) {
 
-		result := CheckIllegalImage(*file)
-		if !result {
-			t.Errorf("check file %s magic number error", fileName)
-		}
-	} else {
-		t.Error(err)
-	}
 }

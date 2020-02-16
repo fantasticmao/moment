@@ -8,39 +8,27 @@ import (
 const fileName = "./testdata/1.png"
 
 func TestGetBaseNameWithoutExt(t *testing.T) {
-	if file, err := os.Open(fileName); err == nil {
-		defer file.Close()
-
-		got := GetBaseNameWithoutExt(*file)
-		want := "1"
-		assert(t, got, want)
-	} else {
+	file, err := os.Open(fileName)
+	if err != nil {
 		t.Error(err)
 	}
+	defer file.Close()
+
+	got := getBaseNameWithoutExt(file)
+	want := "1"
+	assert(t, got, want)
 }
 
 func TestGetExtension(t *testing.T) {
-	if file, err := os.Open(fileName); err == nil {
-		defer file.Close()
-
-		got := GetExtension(*file)
-		want := ".png"
-		assert(t, got, want)
-	} else {
+	file, err := os.Open(fileName)
+	if err != nil {
 		t.Error(err)
 	}
-}
+	defer file.Close()
 
-func TestGetMagicNumber(t *testing.T) {
-	if file, err := os.Open(fileName); err == nil {
-		defer file.Close()
-
-		got := GetMagicNumber(*file)
-		want := imageMagicNumber[".png"]
-		assert(t, got, want)
-	} else {
-		t.Error(err)
-	}
+	got := getExtension(file)
+	want := ".png"
+	assert(t, got, want)
 }
 
 func assert(t *testing.T, got, want string) {

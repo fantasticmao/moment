@@ -29,8 +29,6 @@ func ParseArgs() (opts Options, err error) {
 		fmt.Printf("\n")
 		panic(err)
 	}
-	// 校验命令行参数
-	err = checkArgs(opts)
 	return opts, err
 }
 
