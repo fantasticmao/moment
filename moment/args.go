@@ -4,8 +4,12 @@ import (
 	"errors"
 	"fmt"
 	"github.com/jessevdk/go-flags"
-	"log"
 	"os"
+)
+
+var (
+	ErrPaths  = errors.New("image paths was not specified")
+	ErrHeight = errors.New("subtitle height can't be negative")
 )
 
 type Options struct {
@@ -15,26 +19,25 @@ type Options struct {
 	ShowHelp func() error `long:"help" description:"Display this help message"`
 }
 
-func (o *Options) checkArgs() (err error) {
+func (o *Options) checkArgs() {
 	if len(o.Paths) <= 0 {
-		return errors.New("image paths was not specified")
+		panic(ErrPaths)
 	}
 	if o.Height < 0 {
-		return errors.New("subtitle height can't be negative")
+		panic(ErrHeight)
 	}
-	return nil
 }
 
-func (o *Options) openFiles() ([]*os.File, error) {
+func (o *Options) openFiles() []*os.File {
 	files := make([]*os.File, 0, len(o.Paths))
 	for _, path := range o.Paths {
 		file, err := os.Open(path)
 		if err != nil {
-			return nil, err
+			panic(err)
 		}
 		files = append(files, file)
 	}
-	return files, nil
+	return files
 }
 
 func (o *Options) closeFiles(files []*os.File) error {
@@ -47,7 +50,7 @@ func (o *Options) closeFiles(files []*os.File) error {
 	return nil
 }
 
-func ParseArgs() (opts Options, err error) {
+func ParseArgs() (opts Options) {
 	parser := flags.NewParser(&opts, flags.PassDoubleDash)
 	// see https://github.com/jessevdk/go-flags/issues/240#issuecomment-321556869
 	parser.Usage = "[OPTIONS]"
@@ -57,10 +60,10 @@ func ParseArgs() (opts Options, err error) {
 		return nil
 	}
 	// 解析命令行参数
-	if _, err = parser.Parse(); err != nil {
+	if _, err := parser.Parse(); err != nil {
 		parser.WriteHelp(os.Stdout)
 		fmt.Printf("\n")
-		log.Fatal(err)
+		panic(err)
 	}
-	return opts, err
+	return opts
 }

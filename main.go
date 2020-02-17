@@ -7,15 +7,8 @@ import (
 
 func main() {
 	// 解析参数
-	opts, err := moment.ParseArgs()
-	if err != nil {
-		panic(err)
-	}
-
+	opts := moment.ParseArgs()
 	// 拼接图片
-	target, err := moment.Stitch(opts)
-	if err != nil {
-		panic(err)
-	}
+	target := moment.Stitch(opts)
 	fmt.Println("Success! The joined image path is:", target)
 }

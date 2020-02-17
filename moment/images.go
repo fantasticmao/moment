@@ -19,25 +19,19 @@ var (
 )
 
 // 拼接图片
-func Stitch(opts Options) (string, error) {
+func Stitch(opts Options) string {
 	// 校验命令行参数
-	err := opts.checkArgs()
-	if err != nil {
-		return "", err
-	}
+	opts.checkArgs()
 
 	// 读取文件
-	files, err := opts.openFiles()
-	if err != nil {
-		return "", err
-	}
+	files := opts.openFiles()
 	defer opts.closeFiles(files)
 
 	// 读取第一张图片
 	firstFile := files[0]
 	firstImg, firstImgFormat, err := image.Decode(firstFile)
 	if err != nil {
-		return "", err
+		panic(err)
 	}
 
 	// 生成最终图片
@@ -52,15 +46,15 @@ func Stitch(opts Options) (string, error) {
 	for index, file := range files[1:] {
 		img, format, err := image.Decode(file)
 		if err != nil {
-			return "", err
+			panic(err)
 		}
 		// 校验图片格式
 		if format != firstImgFormat {
-			return "", ErrFormatConsistency
+			panic(ErrFormatConsistency)
 		}
 		// 校验图片宽度
 		if img.Bounds().Max.X != finalImageWidth {
-			return "", ErrWidthConsistency
+			panic(ErrWidthConsistency)
 		}
 		imgImpl, ok := img.(interface {
 			SubImage(r image.Rectangle) image.Image
@@ -73,7 +67,7 @@ func Stitch(opts Options) (string, error) {
 				image.Rect(0, firstImg.Bounds().Max.Y+index*opts.Height, finalImageWidth, firstImg.Bounds().Max.Y+(index+1)*opts.Height),
 				subImg, subImg.Bounds().Min, draw.Over)
 		} else {
-			return "", ErrSubImage
+			panic(ErrSubImage)
 		}
 	}
 
@@ -82,19 +76,17 @@ func Stitch(opts Options) (string, error) {
 	targetPath := filepath.Join(opts.Out, targetName)
 	targetFile, err := os.Create(targetPath)
 	if err != nil {
-		return "", err
+		panic(err)
 	}
 	defer targetFile.Close()
 
 	// 保存最终文件
-	err = encodeByFormat(targetFile, finalImg, firstImgFormat)
-	if err != nil {
-		return "", err
-	}
-	return targetPath, nil
+	encodeByFormat(targetFile, finalImg, firstImgFormat)
+	return targetPath
 }
 
-func encodeByFormat(file *os.File, img image.Image, format string) (err error) {
+func encodeByFormat(file *os.File, img image.Image, format string) {
+	var err error = nil
 	switch format {
 	case "png":
 		err = png.Encode(file, img)
@@ -103,5 +95,8 @@ func encodeByFormat(file *os.File, img image.Image, format string) (err error) {
 	default:
 		err = image.ErrFormat
 	}
-	return
+
+	if err != nil {
+		panic(err)
+	}
 }
