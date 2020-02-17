@@ -2,18 +2,18 @@ package main
 
 import (
 	"fmt"
-	"github.com/FantasticMao/moment/app"
+	"github.com/FantasticMao/moment/moment"
 )
 
 func main() {
 	// 解析参数
-	opts, err := app.ParseArgs()
+	opts, err := moment.ParseArgs()
 	if err != nil {
 		panic(err)
 	}
 
 	// 拼接图片
-	target, err := app.Stitch(opts)
+	target, err := moment.Stitch(opts)
 	if err != nil {
 		panic(err)
 	}
