@@ -17,5 +17,5 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("done, target image:", target)
+	fmt.Println("Success! The joined image path is:", target)
 }

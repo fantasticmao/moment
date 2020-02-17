@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/jessevdk/go-flags"
+	"log"
 	"os"
 )
 
@@ -12,6 +13,38 @@ type Options struct {
 	Height   int          `short:"h" long:"height" default:"120" description:"The height of bottom subtitle which should be in unit px"`
 	Out      string       `long:"out" default:"." description:"The output directory which is used to save the joined image"`
 	ShowHelp func() error `long:"help" description:"Display this help message"`
+}
+
+func (o *Options) checkArgs() (err error) {
+	if len(o.Paths) <= 0 {
+		return errors.New("image paths was not specified")
+	}
+	if o.Height < 0 {
+		return errors.New("subtitle height can't be negative")
+	}
+	return nil
+}
+
+func (o *Options) openFiles() ([]*os.File, error) {
+	files := make([]*os.File, 0, len(o.Paths))
+	for _, path := range o.Paths {
+		file, err := os.Open(path)
+		if err != nil {
+			return nil, err
+		}
+		files = append(files, file)
+	}
+	return files, nil
+}
+
+func (o *Options) closeFiles(files []*os.File) error {
+	for _, file := range files {
+		err := file.Close()
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func ParseArgs() (opts Options, err error) {
@@ -27,17 +60,7 @@ func ParseArgs() (opts Options, err error) {
 	if _, err = parser.Parse(); err != nil {
 		parser.WriteHelp(os.Stdout)
 		fmt.Printf("\n")
-		panic(err)
+		log.Fatal(err)
 	}
 	return opts, err
-}
-
-func checkArgs(opts Options) (err error) {
-	if len(opts.Paths) <= 0 {
-		return errors.New("'--path' argument is required")
-	}
-	if opts.Height < 0 {
-		return errors.New("height could not be negative")
-	}
-	return nil
 }

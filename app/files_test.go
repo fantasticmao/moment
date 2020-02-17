@@ -7,14 +7,14 @@ import (
 
 const fileName = "./testdata/1.png"
 
-func TestGetBaseNameWithoutExt(t *testing.T) {
+func TestGetBaseNameWithoutExtension(t *testing.T) {
 	file, err := os.Open(fileName)
 	if err != nil {
 		t.Error(err)
 	}
 	defer file.Close()
 
-	got := getBaseNameWithoutExt(file)
+	got := getBaseNameWithoutExtension(file)
 	want := "1"
 	assert(t, got, want)
 }
