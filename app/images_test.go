@@ -1,4 +1,4 @@
-package moment
+package app
 
 import "testing"
 
