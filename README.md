@@ -12,7 +12,7 @@ Moment 可以用来保存视频的精彩瞬间：
 
 Moment 下载地址：[https://github.com/FantasticMao/moment/releases](https://github.com/FantasticMao/moment/releases)。
 
-Moment-1.0 (**已过时**) 以 Java 语言编写，以 .jar 文件发布，使用时需预先 [安装 Java 运行环境](https://www.baidu.com/s?wd=安装%20JRE)。
+<del>Moment-1.0 (已过时) 以 Java 语言编写，以 .jar 文件发布，使用时需预先 [安装 Java 运行环境](https://www.baidu.com/s?wd=安装%20JRE)。</del>
 
 Moment-2.0 以 Go 语言编写，无需安装其它依赖，可以直接使用。Moment-2.0 提供了 macOS、Linux、Windows 三个平台的可执行文件。
 
