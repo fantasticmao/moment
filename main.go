@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/FantasticMao/moment/app"
+	"github.com/fantasticmao/moment/app"
 )
 
 func main() {

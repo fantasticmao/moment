@@ -1,6 +1,6 @@
 # Moment
 
-[![Actions Status](https://github.com/fantasticmao/moment/workflows/action/badge.svg)](https://github.com/fantasticmao/moment/actions)
+[![Actions Status](https://github.com/fantasticmao/moment/workflows/ci/badge.svg)](https://github.com/fantasticmao/moment/actions)
 [![image](https://img.shields.io/badge/release-download-blue.svg)](https://github.com/fantasticmao/moment/releases)
 [![image](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/fantasticmao/moment/blob/master/LICENSE)
 

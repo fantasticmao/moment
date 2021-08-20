@@ -18,7 +18,7 @@ var (
 	ErrSubImage          = errors.New("image: unsupported method SubImage")
 )
 
-// 拼接图片
+// Stitch 拼接图片
 func Stitch(opts Options) string {
 	// 校验命令行参数
 	opts.checkArgs()
