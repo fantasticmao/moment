@@ -3,7 +3,7 @@ BUILD_DIR=build
 GO_BUILD=go build
 
 all: darwin-amd64 linux-amd64 windows-amd64
-	@echo "build moment success!"
+	@echo "build $(NAME) success!"
 
 .PHONY: all
 
@@ -17,7 +17,7 @@ windows-amd64:
 	CGO_ENABLED=0 GOOS=windows GOARCH=amd64 $(GO_BUILD) -o ./$(BUILD_DIR)/windows/$(NAME).exe
 
 test:
-	go test ./app -v
+	go test ./test -v
 
 .PHONY: test
 

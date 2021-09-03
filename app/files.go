@@ -6,8 +6,8 @@ import (
 	"strings"
 )
 
-// 获取文件名称（去除后缀名）
-func getBaseNameWithoutExtension(file *os.File) string {
+// GetBaseNameWithoutExtension 获取文件名称（去除后缀名）
+func GetBaseNameWithoutExtension(file *os.File) string {
 	name := filepath.Base(file.Name())
 	if index := strings.LastIndex(name, "."); index != -1 {
 		return name[:index]
@@ -16,7 +16,7 @@ func getBaseNameWithoutExtension(file *os.File) string {
 	}
 }
 
-// 获取文件后缀名
-func getExtension(file *os.File) string {
+// GetExtension 获取文件后缀名
+func GetExtension(file *os.File) string {
 	return filepath.Ext(file.Name())
 }

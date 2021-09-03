@@ -18,6 +18,6 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v2
         with:
-          go-version: '1.16.3'
+          go-version: '1.17'
       - name: Go test
-        run: go test ./app -v
+        run: go test ./test -v

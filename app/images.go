@@ -72,7 +72,7 @@ func Stitch(opts Options) string {
 	}
 
 	// 生成最终文件
-	targetName := getBaseNameWithoutExtension(firstFile) + targetFileNameSuffix + getExtension(firstFile)
+	targetName := GetBaseNameWithoutExtension(firstFile) + targetFileNameSuffix + GetExtension(firstFile)
 	targetPath := filepath.Join(opts.Out, targetName)
 	targetFile, err := os.Create(targetPath)
 	if err != nil {

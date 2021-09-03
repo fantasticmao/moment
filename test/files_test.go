@@ -1,6 +1,7 @@
-package app
+package test
 
 import (
+	"github.com/fantasticmao/moment/app"
 	"os"
 	"testing"
 )
@@ -14,7 +15,7 @@ func TestGetBaseNameWithoutExtension(t *testing.T) {
 	}
 	defer file.Close()
 
-	got := getBaseNameWithoutExtension(file)
+	got := app.GetBaseNameWithoutExtension(file)
 	want := "1"
 	assert(t, got, want)
 }
@@ -26,7 +27,7 @@ func TestGetExtension(t *testing.T) {
 	}
 	defer file.Close()
 
-	got := getExtension(file)
+	got := app.GetExtension(file)
 	want := ".png"
 	assert(t, got, want)
 }
