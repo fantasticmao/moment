@@ -20,39 +20,9 @@ Moment 下载地址：[https://github.com/fantasticmao/moment/releases](https://
 
 Moment-2.x 以 Go 语言编写，无需安装其它依赖，可以直接使用。Moment-2.x 提供了 macOS、Linux、Windows 三个平台的可执行文件。
 
-Moment 使用手册：
-
-macOS / Linux
-
-```text
-~$ ./moment --help
-Usage:
-  moment [OPTIONS]
-
-Application Options:
-  -p, --path=   The file path of image that need to be stitched
-  -h, --height= The height of bottom subtitle which should be in unit px (default: 120)
-      --out=    The output directory which is used to save the joined image (default: .)
-      --help    Display this help message
-```
-
-Windows
-
-```text
-C:\Users\MaoMao\Desktop>moment.exe --help
-Usage:
-  moment.exe [OPTIONS]
-
-Application Options:
-  /p, /path:    The file path of image that need to be stitched
-  /h, /height:  The height of bottom subtitle which should be in unit px (default: 120)
-      /out:     The output directory which is used to save the joined image (default: .)
-      /help     Display this help message
-```
-
 ## 注意事项
 
 使用 Moment 时需要注意以下几点：
 
-- Moment 仅支持拼接 `jpeg`、`png` 格式的图片，且所有图片格式和宽度需要保持一致；
-- Moment 最终生成的图片名称为第一个 `-p` 参数指定的图片名称加上 `_final` 后缀。
+- Moment 仅支持拼接 `jpeg`、`png` 格式的图片，且所有图片格式和宽度需要保持一致。
+- Moment 最终生成的图片名称为第一张图片名称加上 `_final` 后缀。
