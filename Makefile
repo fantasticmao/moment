@@ -1,27 +1,59 @@
 NAME=moment
-BUILD_DIR=build
+BIN_DIR=bin
 GO_BUILD=go build
 
-all: darwin-amd64 linux-amd64 windows-amd64
-	@echo "build $(NAME) success!"
+PLATFORM_LIST=darwin-amd64 darwin-arm64 linux-amd64 linux-armv5 linux-armv6 linux-armv7 linux-armv8 \
+	windows-amd64 windows-arm64
 
-.PHONY: all
+default: build
+
+.PHONY: default
+
+build: darwin-amd64 linux-amd64 windows-amd64 # Most used
+
+build-all: $(PLATFORM_LIST)
 
 darwin-amd64:
-	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 $(GO_BUILD) -o ./$(BUILD_DIR)/macos/$(NAME)
+	GOARCH=amd64 GOOS=darwin $(GO_BUILD) -o $(BIN_DIR)/$(NAME)-$@
+
+darwin-arm64:
+	GOARCH=arm64 GOOS=darwin $(GO_BUILD) -o $(BIN_DIR)/$(NAME)-$@
 
 linux-amd64:
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 $(GO_BUILD) -o ./$(BUILD_DIR)/linux/$(NAME)
+	GOARCH=amd64 GOOS=linux $(GO_BUILD) -o ./$(BIN_DIR)/$(NAME)-$@
+
+linux-armv5:
+	GOARCH=arm GOOS=linux GOARM=5 $(GO_BUILD) -o $(BIN_DIR)/$(NAME)-$@
+
+linux-armv6:
+	GOARCH=arm GOOS=linux GOARM=6 $(GO_BUILD) -o $(BIN_DIR)/$(NAME)-$@
+
+linux-armv7:
+	GOARCH=arm GOOS=linux GOARM=7 $(GO_BUILD) -o $(BIN_DIR)/$(NAME)-$@
+
+linux-armv8:
+	GOARCH=arm64 GOOS=linux $(GO_BUILD) -o $(BIN_DIR)/$(NAME)-$@
 
 windows-amd64:
-	CGO_ENABLED=0 GOOS=windows GOARCH=amd64 $(GO_BUILD) -o ./$(BUILD_DIR)/windows/$(NAME).exe
+	GOARCH=amd64 GOOS=windows $(GO_BUILD) -o $(BIN_DIR)/$(NAME)-$@.exe
+
+windows-arm64:
+	GOARCH=arm64 GOOS=windows $(GO_BUILD) -o $(BIN_DIR)/$(NAME)-$@.exe
 
 test:
-	go test ./test -v
+	go test ./... -race -coverprofile=coverage.txt -covermode=atomic -v
 
 .PHONY: test
 
 clean:
-	rm -rf $(BUILD_DIR)
+	rm $(BIN_DIR)/*
 
 .PHONY: clean
+
+help:
+	@echo 'make clean: clean project'
+	@echo 'make test: compile and test project'
+	@echo 'make [build]: compile and build project'
+	@echo 'make build-all: compile and build project for all platform'
+
+.PHONY: help
