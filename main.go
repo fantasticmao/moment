@@ -19,18 +19,18 @@ func main() {
 
 	target, err := stitch(images, height)
 	if err != nil {
-		fmt.Printf("Error: %s\n", err.Error())
+		fmt.Printf("error: %s\n", err.Error())
 	} else {
-		fmt.Printf("Success! The final image is %s\n", target)
+		fmt.Printf("success! The generated image is %s\n", target)
 	}
 }
 
 func checkArgs() {
 	if len(images) <= 0 {
-		fatal("Error: images not found\nusage: %s image [image ......]\n", os.Args[0])
+		fatal("error: images not found\nusage: %s image [image ...]\n", os.Args[0])
 	}
 	if height <= 0 {
-		fatal("Error: subtitle height must be positive\n")
+		fatal("error: subtitle height must be positive\n")
 	}
 }
 

@@ -9,9 +9,8 @@ import (
 	"image/png"
 	"os"
 	"path/filepath"
+	"time"
 )
-
-const finalImgNameSuffix = "_final"
 
 type subImage interface {
 	SubImage(r image.Rectangle) image.Image
@@ -53,7 +52,7 @@ func stitch(images []string, height int) (string, error) {
 
 		// 校验图片宽度
 		if imgWidth != baseImgWidth {
-			return "", errors.New(fmt.Sprintf("image width between %d(%s) and %d(%s) are not the same",
+			return "", errors.New(fmt.Sprintf("image widths between %d(%s) and %d(%s) are not the same",
 				imgWidth, file.Name(), baseImgWidth, baseFile.Name()))
 		}
 
@@ -65,12 +64,13 @@ func stitch(images []string, height int) (string, error) {
 				baseImgWidth, baseImgHeight+height*(index+1))
 			draw.Draw(finalImg, nextImgRect, nextImg, nextImg.Bounds().Min, draw.Over)
 		} else {
-			return "", errors.New("image: unsupported method SubImage")
+			return "", image.ErrFormat
 		}
 	}
 
 	// 生成最终文件
-	targetName := getFileName(baseFile) + finalImgNameSuffix + getFileExtension(baseFile)
+	targetName := fmt.Sprintf("%s-%d%s", getFileName(baseFile), time.Now().UnixMilli(),
+		getFileExtension(baseFile))
 	targetPath := filepath.Join(".", targetName)
 	targetFile, err := os.Create(targetPath)
 	if err != nil {
