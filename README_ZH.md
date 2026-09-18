@@ -1,8 +1,10 @@
 # Moment
 
 [![Actions Status](https://github.com/fantasticmao/moment/workflows/ci/badge.svg)](https://github.com/fantasticmao/moment/actions)
-[![image](https://img.shields.io/badge/release-download-blue.svg)](https://github.com/fantasticmao/moment/releases)
-[![image](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/fantasticmao/moment/blob/master/LICENSE)
+![Go Version](https://img.shields.io/github/go-mod/go-version/fantasticmao/moment)
+[![Go Report Card](https://goreportcard.com/badge/github.com/fantasticmao/moment)](https://goreportcard.com/report/github.com/fantasticmao/moment)
+[![Release](https://img.shields.io/github/v/release/fantasticmao/moment)](https://github.com/fantasticmao/moment/releases)
+[![License](https://img.shields.io/github/license/fantasticmao/moment)](https://github.com/fantasticmao/moment/blob/main/LICENSE)
 
 README [English](README.md) | [中文](README_ZH.md)
 
